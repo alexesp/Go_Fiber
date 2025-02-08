@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/alexesp/Go_Fiber.git/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -28,8 +29,12 @@ func ConnectDb(){
 
 	log.Println("Arrancar Migrations")
 
+	//TODO: Crear migracion
+
+	db.AutoMigrate(&models.User{}, &models.Product{}, &models.Order{})
 
 
 
+Database = DbInstance{Db: db}
 
 }
