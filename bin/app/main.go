@@ -16,6 +16,9 @@ func welcome(c *fiber.Ctx) error{
 func setupRoutes(app *fiber.App){
 	app.Get("/", welcome)
 	app.Post("/users", routes.CreateUser)
+	app.Get("/users", routes.GetUsers)
+	app.Get("/users/:id", routes.GetUser)
+	app.Put("/users/:id", routes.UpdateUser)
 }
 
 func main(){
