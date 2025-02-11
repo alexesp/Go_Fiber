@@ -108,3 +108,26 @@ func UpdateProduct(c *fiber.Ctx) error{
 	responseProduct := CreateResponseProduct(product)
 	return c.Status(200).JSON(responseProduct)
 }
+
+func DeleteProduct(c *fiber.Ctx) error{
+	id, err := c.ParamsInt("id")
+
+	var product models.Product
+
+	if err != nil{
+		return c.Status(400).JSON("Asegurase que id es de tipo entero")
+	}
+
+	if err := findProduct(id, &product)
+	err != nil{
+		return c.Status(400).JSON(err.Error())
+	}
+
+	err = database.Database.Db.Delete(&product).Error
+
+	if err != nil{
+		return c.Status(404).JSON(err.Error())
+	}
+
+	return c.Status(200).SendString("El producto borrado con exito.")
+}
